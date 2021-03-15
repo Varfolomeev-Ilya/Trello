@@ -8,6 +8,7 @@ const accountRouter = require('./routes/accountRouters');
 app.set("view engine", "hbs");
 app.use("/upload", userRouter, (req,res) => {
   res.render("upload.hbs");
+  res.send(req.file)
 });
 
 app.use(bodyParser.urlencoded({ extended: false }));
