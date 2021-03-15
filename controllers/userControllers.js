@@ -1,5 +1,7 @@
 require("dotenv").config();
+const multer = require("multer");
 const models = require('../db/models');
+require("../middleware/loadingAvatar");
 
 exports.putUser = async (req, res) => {
   try {
@@ -12,7 +14,7 @@ exports.putUser = async (req, res) => {
       firstName: firstName,
       lastName: lastName,
       aboutMe: aboutMe,
-      avatar: avatar
+      avatar: multer.diskStorage.destination
     },
     { where: { 
       id: id 

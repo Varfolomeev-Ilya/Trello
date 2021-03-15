@@ -2,7 +2,6 @@ require("dotenv").config();
 const models = require('../db/models');
 const bcrypt = require('bcryptjs');
 const { updateTokens } = require("../middleware/updateToken");
-require("../middleware/loadingAvatar");
 
 exports.signUp = async (req, res) => {
   try {
@@ -18,8 +17,7 @@ exports.signUp = async (req, res) => {
       email: email,
       password: passwordHash,
       dateOfBirth: dateOfBirth,
-      aboutMe: aboutMe,
-      avatar: avatar
+      aboutMe: aboutMe
     });
     res.status(200).json({ message: "New user created" });  
   } catch (err) {

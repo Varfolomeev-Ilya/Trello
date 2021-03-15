@@ -6,7 +6,7 @@ const userRouter = require('./routes/userRouters');
 const accountRouter = require('./routes/accountRouters');
 
 app.set("view engine", "hbs");
-app.use("/upload", accountRouter, (req,res) => {
+app.use("/upload", userRouter, (req,res) => {
   res.render("upload.hbs");
 });
 
