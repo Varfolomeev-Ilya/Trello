@@ -1,18 +1,33 @@
-const jwt = require("jsonwebtoken");
-const models = require("../db/models");
 const multer = require('multer');
 
+const storageConfig = multer.diskStorage({
+  destination: (req, file, cb) =>{
+      cb(null, "uploads");
+  },
+  filename: (req, file, cb) =>{
+      cb(null, file.originalname);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  
+  if(file.mimetype === "image/png" || 
+  file.mimetype === "image/jpg"|| 
+  file.mimetype === "image/jpeg"){
+      cb(null, true);
+  }
+  else{
+      cb(null, false);
+  }
+};
+
 const uploadFile = (req, res, next) => {
-  try {
     const filedata = req.file;
-      if(!filedata){
-      return res.send(401).json({ message: "upload error, try again"});
-      }
-      console.log(filedata);
-  } catch (err) {
-    res.status(401).json({ message : err.message});
-  }   
-}
+    console.log(filedata);
+    if(!filedata)
+      res.send(401).json({ message: "upload error, try again"});
+    else
+      res.send(200).json({ message:"file is upload"})
+};
 
-module.exports = { uploadFile };
-
+module.exports = { uploadFile, storageConfig, fileFilter };
