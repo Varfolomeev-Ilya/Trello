@@ -2,6 +2,7 @@ require("dotenv").config();
 const models = require('../db/models');
 const bcrypt = require('bcryptjs');
 const { updateTokens } = require("../middleware/updateToken");
+require("../middleware/loadingAvatar");
 
 exports.signUp = async (req, res) => {
   try {

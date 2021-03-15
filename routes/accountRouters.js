@@ -2,7 +2,7 @@ const express = require('express');
 const controllers = require ('../controllers/accountControllers');
 const accountController = express.Router();
 const { signUpValidation, loginValidation } = require('../middleware/validation');
-const { uploadFile, storageConfig, fileFilter  } = require('../middleware/loading avatar');
+const { uploadFile, storageConfig, fileFilter  } = require('../middleware/loadingAvatar');
 const multer = require('multer')
 
 accountController.post("/signup",signUpValidation, controllers.signUp);

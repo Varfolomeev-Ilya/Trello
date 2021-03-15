@@ -4,7 +4,6 @@ const { errors } = require('celebrate');
 const app = express();
 const userRouter = require('./routes/userRouters');
 const accountRouter = require('./routes/accountRouters');
-const multer = require('multer');
 
 app.set("view engine", "hbs");
 app.use("/upload", accountRouter, (req,res) => {
