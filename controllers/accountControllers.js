@@ -15,9 +15,7 @@ exports.signUp = async (req, res) => {
       firstName: firstName,
       lastName: lastName,
       email: email,
-      password: passwordHash,
-      dateOfBirth: dateOfBirth,
-      aboutMe: aboutMe
+      password: passwordHash
     });
     res.status(200).json({ message: "New user created" });  
   } catch (err) {

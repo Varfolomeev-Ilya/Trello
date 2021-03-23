@@ -7,7 +7,7 @@ const { uploadFile, storageConfig, fileFilter  } = require('../middleware/loadin
 const multer = require('multer')
 
 userRouter.put("/update/:id", updateUserValidation, tokenChecker, controllers.putUser);
-userRouter.get("/users", tokenChecker, controllers.getAllUsers);
+userRouter.get("/home", controllers.getAllUsers);
 userRouter.delete("/delete/:id", tokenChecker, controllers.deleteUser);
 userRouter.get("/user/:id", controllers.getOneUser);
 
