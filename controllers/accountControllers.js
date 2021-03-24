@@ -5,18 +5,17 @@ const { updateTokens } = require("../middleware/updateToken");
 
 exports.signUp = async (req, res) => {
   try {
-    const { firstName, lastName, email, password, dateOfBirth, aboutMe, avatar } = req.body;
+    const { email, password } = req.body;
     const oldUser = await models.User.findOne({ where: { email: email } });
       if (oldUser) {
         throw new Error("Email alredy used");
       };
     const passwordHash = bcrypt.hashSync(password, 10);
     await models.User.create({
-      firstName: firstName,
-      lastName: lastName,
       email: email,
-      password: passwordHash
+      password: passwordHash,
     });
+
     res.status(200).json({ message: "New user created" });  
   } catch (err) {
       res.status(400).json({ message: err.message });  
@@ -41,8 +40,10 @@ exports.signIn = async (req, res) => {
     };
 
     const tokens = await updateTokens(user.id);
-    
-    res.status(200).json({ message : "successful login", tokens});
+    if (tokens){
+      res.status(200).json({ message : "successful login", tokens});
+      localStorage.setItem(checkToken,'true')
+    }    
   } catch (err) {
       res.status(400).json({ message: err.message});
   };
