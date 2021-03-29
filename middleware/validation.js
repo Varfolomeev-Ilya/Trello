@@ -4,6 +4,8 @@ const signUpValidation = celebrate({
   body: Joi.object().keys({
     email: Joi.string().min(5).email().required(),
     password: Joi.string().min(8).required(),
+    firstName: Joi.string(),
+    lastName: Joi.string(),
   }),    
 });
 

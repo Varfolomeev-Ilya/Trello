@@ -5,7 +5,7 @@ require("../middleware/loadingAvatar");
 
 exports.putUser = async (req, res) => {
   try {
-    // const id = req.params.id;
+    const id = req.params.id;
     const { firstName, lastName, email, password, aboutMe } = req.body;
       if (!email && !password ) {
         throw new Error("the data provided is incorrect ");
@@ -15,10 +15,10 @@ exports.putUser = async (req, res) => {
       lastName: lastName,
       aboutMe: aboutMe,
       // avatar: multer.diskStorage.destination
-    // },
-    // { where: { 
-    //   id: id 
-    //   },
+    },
+    { where: { 
+      id: id 
+      },
     });
     res.status(200).json({ message: "user updated"}); 
   } catch (err) {
@@ -28,6 +28,9 @@ exports.putUser = async (req, res) => {
 
 exports.getAllUsers = async (req, res) => {
   try {
+    // if ( roleId != 1 ) {
+    //   throw new Error("user is not a admin");
+    // };
     const allUsers = await models.User.findAll({
       raw:true, 
       attributes: { exclude: ["password"]}

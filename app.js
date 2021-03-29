@@ -5,16 +5,14 @@ const app = express();
 const userRouter = require('./routes/userRouters');
 const accountRouter = require('./routes/accountRouters');
 const cors = require('cors');
-
+const corsOptions = {
+  origin: "http://localhost:3000"
+};
+app.use(cors(corsOptions))
 // app.set("view engine", "hbs");
 app.use("/account", userRouter, (req,res) => {
   res.send(req.file)
 });
-
-const corsOptions = {
-  origin: "http://localhost:3000"
-};
-app.use(cors(corsOptions));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

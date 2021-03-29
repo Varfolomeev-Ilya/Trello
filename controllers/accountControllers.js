@@ -5,18 +5,20 @@ const { updateTokens } = require("../middleware/updateToken");
 
 exports.signUp = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, firstName, lastName } = req.body;
     const oldUser = await models.User.findOne({ where: { email: email } });
       if (oldUser) {
         throw new Error("Email alredy used");
       };
     const passwordHash = bcrypt.hashSync(password, 10);
-    await models.User.create({
+    const user = await models.User.create({
       email: email,
       password: passwordHash,
+      firstName: firstName,
+      lastName: lastName,
+      roleId: "1",
     });
-
-    res.status(200).json({ message: "New user created" });  
+    res.status(200).json({ message: "New user created",user });  
   } catch (err) {
       res.status(400).json({ message: err.message });  
   };
