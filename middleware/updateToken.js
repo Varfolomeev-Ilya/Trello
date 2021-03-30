@@ -54,7 +54,8 @@ const updateTokens = async (userId) => {
 
 const tokenChecker = (req, res, next) => {
   try {
-    const token = req.headers.authorization.split(" ")[1];
+    const token = req.body.token;
+    // headers.authorization.split(" ")[1];
     jwt.verify(token, secret,(err,decoded) => {
       if (err) {
         return res.status(400).json({ message : "verification is false"});
@@ -63,7 +64,7 @@ const tokenChecker = (req, res, next) => {
   } catch (err) {
     res.status(401).json({ message : err.message})
   }
-  next();   
+  next();
 }; 
 
 module.exports = { tokenChecker, updateTokens };

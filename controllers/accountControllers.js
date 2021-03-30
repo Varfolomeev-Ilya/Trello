@@ -7,9 +7,9 @@ exports.signUp = async (req, res) => {
   try {
     const { email, password, firstName, lastName } = req.body;
     const oldUser = await models.User.findOne({ where: { email: email } });
-      if (oldUser) {
-        throw new Error("Email alredy used");
-      };
+    if (oldUser) {
+      throw new Error("Email alredy used");
+    };
     const passwordHash = bcrypt.hashSync(password, 10);
     const user = await models.User.create({
       email: email,
@@ -18,20 +18,25 @@ exports.signUp = async (req, res) => {
       lastName: lastName,
       roleId: "1",
     });
-    res.status(200).json({ message: "New user created",user });  
+    res.status(200).json({ message: "New user created", user });
   } catch (err) {
-      res.status(400).json({ message: err.message });  
+    res.status(400).json({ message: err.message });
   };
-};  
+};
 
 exports.signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email) {
-      res.status(400).json({ message: "Invalid email"});
+      res.status(400).json({ message: "Invalid email" });
     };
 
-    const user = await models.User.findOne({ where : { email: email } });
+    const user = await models.User.findOne({
+      where: { 
+        email: email,
+       }       
+    });
+
     if (!user) {
       res.status(400).json({ message: "user not found" });
     };
@@ -42,10 +47,10 @@ exports.signIn = async (req, res) => {
     };
 
     const tokens = await updateTokens(user.id);
-    
-      res.status(200).json({ message : "successful login", tokens});
-        
+
+    res.status(200).json({ message: "successful login", tokens, user });
+
   } catch (err) {
-      res.status(400).json({ message: err.message});
+    res.status(400).json({ message: err.message });
   };
 };

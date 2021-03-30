@@ -10,11 +10,11 @@ const corsOptions = {
 };
 app.use(cors(corsOptions))
 // app.set("view engine", "hbs");
-app.use("/account", userRouter, (req,res) => {
-  res.send(req.file)
-});
+// app.use("/account", userRouter, (req,res) => {
+//   res.send(req.file)
+// });
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use("/", userRouter, accountRouter);
 app.use((req, res) => {
