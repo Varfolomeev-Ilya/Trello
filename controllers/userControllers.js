@@ -29,12 +29,11 @@ exports.putUser = async (req, res) => {
 
 exports.getAllUsers = async (req, res) => {
   try {
-    const { token , roleId } = req.body;
-    if (roleId != 1) {
-      throw new Error("user is not a admin");
-    };
+    // const { roleId } = req.body;
+    // if (roleId != 1) {
+    //   throw new Error("user is not a admin");
+    // };
     const allUsers = await models.User.findAll({
-      raw: true,
       attributes: { exclude: ["password"] }
     });
     res.status(200).json({ message: "All users", allUsers });
