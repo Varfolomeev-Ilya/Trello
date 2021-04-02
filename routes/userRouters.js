@@ -11,7 +11,6 @@ userRouter.delete("/delete/:id", tokenChecker, controllers.deleteUser);
 userRouter.get("/user/:id", tokenChecker, controllers.getOneUser);
 
 userRouter.put("/account" , tokenChecker, controllers.putUser);
-// userRouter.post("/boards", controllers.putUser)
 
 // userRouter.post("/account", uploadFile);
 // userRouter.use(multer({dest:"avatars"}, {storage:storageConfig, filter:fileFilter}).single("filedata"));

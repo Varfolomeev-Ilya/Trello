@@ -54,9 +54,13 @@ const updateTokens = async (userId) => {
 
 const tokenChecker = (req, res, next) => {
   try {
-    const token = req.body.token;
+    const token = req.headers.authorization.split(" ")[1];     
     // headers.authorization.split(" ")[1];
+
     jwt.verify(token, secret,(err,decoded) => {
+      if(token) {
+        return res.status(200).json('111')
+      }
       if (err) {
         return res.status(400).json({ message : "verification is false"});
       }
