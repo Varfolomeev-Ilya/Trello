@@ -1,17 +1,17 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Mediators', {
+    await queryInterface.createTable('Column_Tasks', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      boardId: {
+      columnId: {
         type: Sequelize.INTEGER
       },
-      userId: {
+      taskId: {
         type: Sequelize.INTEGER
       },
       createdAt: {
@@ -25,6 +25,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Mediators');
+    await queryInterface.dropTable('Column_Tasks');
   }
 };

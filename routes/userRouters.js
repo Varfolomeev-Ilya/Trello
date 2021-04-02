@@ -6,7 +6,7 @@ const { tokenChecker } = require('../middleware/updateToken');
 const { uploadFile, storageConfig, fileFilter  } = require('../middleware/loadingAvatar');
 const multer = require('multer')
 
-userRouter.get("/admin", controllers.getAllUsers);
+userRouter.get("/admin", tokenChecker, controllers.getAllUsers);
 userRouter.delete("/delete/:id", tokenChecker, controllers.deleteUser);
 userRouter.get("/user/:id", tokenChecker, controllers.getOneUser);
 

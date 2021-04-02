@@ -11,15 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Task.hasMany(models.Colums, {
-        foreignKey: 'columnId',
-        onDelete: 'CASCADE',
-      });
+      Task.belongsToMany(models.Column, 
+        { through: 'Column_Task' }
+        );
     }
   };
   Task.init({
-    name: DataTypes.STRING,
-    text: DataTypes.STRING
+    name: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Task',

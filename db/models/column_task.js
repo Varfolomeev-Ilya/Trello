@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Mediator extends Model {
+  class Column_Task extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,12 +13,12 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  Mediator.init({
-    boardId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER
+  Column_Task.init({
+    columnId: DataTypes.INTEGER,
+    taskId: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Mediator',
+    modelName: 'Column_Task',
   });
-  return Mediator;
+  return Column_Task;
 };

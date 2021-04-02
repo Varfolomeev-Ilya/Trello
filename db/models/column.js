@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Colums extends Model {
+  class Column extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,21 +11,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Colums.hasMany(models.Board,{
-        foreignKey: 'boardId',
-        as: 'BoardColum'
-      })
-      // Colums.hasMany(models.Task, {
-      //   foreignKey: 'columnId',
-      //   onDelete: 'CASCADE',
-      // });
+      Column.belongsToMany(models.Task, 
+        { through: 'Column_Task' }
+        );
     }
   };
-  Colums.init({
+  Column.init({
     name: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Colums',
+    modelName: 'Column',
   });
-  return Colums;
+  return Column;
 };

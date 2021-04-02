@@ -11,8 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+
       User.belongsToMany(models.Board, 
-      { through: models.Mediator }
+      { through: 'User_Boards' }
       );
     }
   };
@@ -25,7 +26,8 @@ module.exports = (sequelize, DataTypes) => {
     avatar: DataTypes.STRING,
     aboutMe: DataTypes.STRING,
     roleId: DataTypes.INTEGER
-  }, {
+  }, 
+  {
     sequelize,
     modelName: 'User',
   });

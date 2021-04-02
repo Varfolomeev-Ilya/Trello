@@ -6,10 +6,12 @@ const userRouter = require('./routes/userRouters');
 const accountRouter = require('./routes/accountRouters');
 const boardRouter = require('./routes/boardsRouters')
 const multer = require('multer');
+const helmet = require('helmet')
 const cors = require('cors');
 const corsOptions = {
   origin: "http://localhost:3000"
 };
+app.use(helmet());
 app.use(cors(corsOptions))
 // app.use("/account", (req,res) => {
 //   res.send(req.file)
@@ -27,7 +29,6 @@ const upload = multer({dest:"avatars"});
 //   else
 //       res.send("Файл загружен");
 // });
-
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
