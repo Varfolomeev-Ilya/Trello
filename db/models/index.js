@@ -1,23 +1,23 @@
-const fs = require("fs");
-const path = require("path");
-const Sequelize = require("sequelize");
-const envConfigs = require("../config/config");
+const fs = require('fs');
+const path = require('path');
+const Sequelize = require('sequelize');
+const envConfigs = require('../config/config');
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || "development";
+const env = process.env.NODE_ENV || 'development';
 const config = envConfigs[env];
 const db = {};
 
 const sequelize = new Sequelize(config.url, config); 
 
 sequelize.sync().then(function() {
-  console.log("database load completed successfully ")
+  console.log('database load completed successfully ')
 }).catch(function(err) {
-  console.log(err, "Something went wrong with the Database Update!")
+  console.log(err, 'Something went wrong with the Database Update!')
 });
 
 fs.readdirSync(__dirname)
   .filter((file) => {
-    return (file.indexOf(".") !== 0) && (file !== basename) && (file.slice(-3) === ".js");
+    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
   })
 
   .forEach((file) => {

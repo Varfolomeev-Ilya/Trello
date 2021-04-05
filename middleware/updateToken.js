@@ -1,14 +1,14 @@
-require("dotenv").config();
-const { v4: uuidv4 } = require("uuid");
-const jwt = require("jsonwebtoken");
-const models = require("../db/models");
+require('dotenv').config();
+const { v4: uuidv4 } = require('uuid');
+const jwt = require('jsonwebtoken');
+const models = require('../db/models');
 
 const secret = process.env.JWT_SECRET;
 
 const generateAccessToken = (userId) => {
   const payload = {
     userId,
-    type: "access",
+    type: 'access',
   };
   const options = { expiresIn: process.env.ACCESS_TOKEN_EXPIRESIN };
   return jwt.sign(payload, secret, options);
@@ -17,7 +17,7 @@ const generateAccessToken = (userId) => {
 const generateRefreshToken = () => {
   const payload = {
     id: uuidv4(),
-    type: "refresh",
+    type: 'refresh',
   };
   const options = { expiresIn: process.env.REFRESH_TOKEN_EXPIRESIN };
   return {
@@ -33,8 +33,7 @@ const updateDRefreshToken = async (tokenId, userId) => {
     if (!token) return await models.token.create({ userId, tokenId });
     return await token.update({ userId, tokenId });
   } catch (err) {
-      res.status(401).json({ message: err.message});
-      throw error;
+    return res.status(401).json({ message: err.message });
   };
 };
 
@@ -44,7 +43,7 @@ const updateTokens = async (userId) => {
   try {
     await updateDRefreshToken(refreshToken.id, userId);
   } catch (err) {
-     res.status(401).json({ err:true, message: "token has not been updated"});
+    return res.status(404).json({ err: true, message: 'token has not been updated' });
   }
   return {
     accessToken,
@@ -54,19 +53,19 @@ const updateTokens = async (userId) => {
 
 const tokenChecker = (req, res, next) => {
   try {
-    const token = req.headers.authorization.split(" ")[1];     
-    jwt.verify(token, secret,(err,decoded) => {
-      if(token) {
-        return res.status(200).json({ message : "confirmed"})
+    const token = req.headers.authorization.split(' ')[1];
+    jwt.verify(token, secret, (err, decoded) => {
+      if (token) {
+        return res.status(202).json({ message: 'confirmed' })
       }
       if (err) {
-        return res.status(400).json({ message : "verification is false"});
+        return res.status(401).json({ message: 'verification is false' });
       }
     });
   } catch (err) {
-    res.status(401).json({ message : err.message})
+    return res.status(404).json({ message: err.message })
   }
   next();
-}; 
+};
 
 module.exports = { tokenChecker, updateTokens };

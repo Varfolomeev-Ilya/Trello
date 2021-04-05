@@ -11,13 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Task.belongsToMany(models.Column, 
-        { through: 'Column_Task' }
-        );
     }
   };
   Task.init({
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    columnId: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Task',

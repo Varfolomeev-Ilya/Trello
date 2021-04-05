@@ -6,7 +6,7 @@ const signUpValidation = celebrate({
     password: Joi.string().min(8).required(),
     firstName: Joi.string(),
     lastName: Joi.string(),
-  }),    
+  }),
 });
 
 const updateUserValidation = celebrate({
@@ -24,4 +24,4 @@ const loginValidation = celebrate({
   }),
 });
 
-module.exports =  { signUpValidation, updateUserValidation, loginValidation };
+module.exports = { signUpValidation, updateUserValidation, loginValidation };

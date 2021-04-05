@@ -12,24 +12,38 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      User.belongsToMany(models.Board, 
-      { through: 'User_Boards' }
+      User.belongsToMany(models.Board,
+        { through: 'User_Boards' }
       );
     }
   };
   User.init({
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
-    email: DataTypes.STRING,
+    email: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: true,
+      },
+    },
     dateOfBirth: DataTypes.DATE,
-    password: DataTypes.STRING,
+    password: {
+      type: DataTypes.STRING,
+      validate: {
+        min: 8,
+      }
+    },
     avatar: DataTypes.STRING,
     aboutMe: DataTypes.STRING,
     roleId: DataTypes.INTEGER
-  }, 
-  {
-    sequelize,
-    modelName: 'User',
-  });
+  },
+    {
+      sequelize,
+      modelName: 'User',
+      defaultScope: {
+        attributes: { exclude: ['password'] },
+      },
+    });
   return User;
 };
