@@ -2,7 +2,7 @@ const multer = require('multer');
 
 const storageConfig = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'avatars');
+    cb(null, 'public/avatars');
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
@@ -24,9 +24,9 @@ const uploadFile = (req, res, next) => {
   const filedata = req.file;
   console.log(filedata);
   if (!filedata) {
-    return res.send(400).json({ message: 'upload error, try again' });
+    return res.status(400).json({ message: 'upload error, try again' });
   } else {
-    return res.send(201).json({ message: 'file is upload' })
+    return res.status(201).json({ message: 'file is upload' })
   }
 };
 

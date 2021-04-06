@@ -20,9 +20,9 @@ exports.signUp = async (req, res) => {
     });
     const tokens = await updateTokens(user.id);
 
-    return res.status(201).json({ message: 'New user created', user });
-  } catch (err) {
-    return res.status(400).json({ message: err.message });
+    return res.status(201).json({ message: 'New user created', user, tokens });
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
   };
 };
 
