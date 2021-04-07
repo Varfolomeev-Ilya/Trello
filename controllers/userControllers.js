@@ -6,21 +6,25 @@ require('../middleware/loadingAvatar');
 exports.updateUser = async (req, res) => {
   try {
     const { firstName, lastName, email, aboutMe, id } = req.body;
+    const filedata = req.file;
     if (!email && !firstName && !lastName && !aboutMe) {
       throw new Error('the data provided is incorrect ');
     };
-    await models.User.update({
+    const updatedUser = await models.User.update({
       firstName,
       lastName,
       aboutMe,
-      avatar: multer.diskStorage.destination
     },
       {
         where: { id },
+        returning: true,
+        plain: true
       });
-    return res.status(201).json({ message: 'user updated' });
-  } catch (err) {
-    res.status(404).json({ message: err.message });
+    const user = updatedUser[1].dataValues;
+    delete user.password;
+    return res.status(200).json(user);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
   };
 };
 
@@ -54,9 +58,37 @@ exports.deleteUser = async (req, res) => {
     const id = req.params.id;
     await models.User.destroy({
       where: { id },
+
     });
+
     return res.status(202).json({ message: 'User deleted', id });
   } catch (err) {
     return res.status(404).json({ message: err.message });
   };
+};
+
+
+exports.uploadFile = async (req, res) => {
+  try {
+    const filedata = req.file;
+    const id = req.body.id
+    const updatedUser = await models.User.update(
+      {
+        avatar: filedata.path
+      },
+      {
+        where: { id },
+        returning: true,
+        plain: true
+      }
+    )
+    const user = updatedUser[1].dataValues;
+    delete user.password;
+    if (!filedata) {
+      return res.status(400).json({ message: 'upload error, try again' });
+    }
+    return res.status(200).json(user)
+  } catch (error) {
+    return res.status(404).json({ message: error.message })
+  }
 };
