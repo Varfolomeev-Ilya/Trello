@@ -2,6 +2,7 @@ require('dotenv').config();
 const { v4: uuidv4 } = require('uuid');
 const jwt = require('jsonwebtoken');
 const models = require('../db/models');
+const { response } = require('express');
 
 const secret = process.env.JWT_SECRET;
 
@@ -51,17 +52,21 @@ const updateTokens = async (userId) => {
   };
 };
 
+// const tokenChecker = (req, res, next) => {
+//   try {
+//     const token = req.headers.authorization.split(' ')[1];
+//     const payload = jwt.verify(token);
+//     const reqUser = payload;
+//     return res.status(200).json({message :'successful login', reqUser})
+//   } catch (err) {
+//      res.status(404).json({ message: err.message })
+//   }
+//   next();
+// };
 const tokenChecker = (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1];
   try {
-    const token = req.headers.authorization.split(' ')[1];
-    jwt.verify(token, secret, (err, decoded) => {
-      if (token) {
-        return res.status(202).json({ message: 'confirmed' })
-      }
-      if (err) {
-        return res.status(401).json({ message: 'verification is false' });
-      }
-    });
+    jwt.verify(token, secret);
   } catch (err) {
     return res.status(404).json({ message: err.message })
   }

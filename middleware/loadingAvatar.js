@@ -22,8 +22,6 @@ const fileFilter = (req, file, cb) => {
 
 const uploadFile = (req, res, next) => {
   const filedata = req.file;
-  // console.log(filedata);
-  // console.log(filedata.path)
   if (!filedata) {
     return res.status(400).json({ message: 'upload error, try again' });
   } else {

@@ -6,7 +6,6 @@ require('../middleware/loadingAvatar');
 exports.updateUser = async (req, res) => {
   try {
     const { firstName, lastName, email, aboutMe, id } = req.body;
-    const filedata = req.file;
     if (!email && !firstName && !lastName && !aboutMe) {
       throw new Error('the data provided is incorrect ');
     };
@@ -31,6 +30,8 @@ exports.updateUser = async (req, res) => {
 exports.getAllUsers = async (req, res) => {
   try {
     // const { roleId } = req.body;
+    // console.log(roleId)
+
     // if (roleId != 1) {
     //   throw new Error('user is not a admin');
     // };
@@ -44,13 +45,15 @@ exports.getAllUsers = async (req, res) => {
 exports.getOneUser = async (req, res) => {
   try {
     const id = req.body;
+    console.log(id)
     const oneUser = await models.User.findOne({
       where: { id },
     });
     return res.status(200).json({ message: 'User', oneUser });
   } catch (err) {
-    return res.status(404).json({ message: err.message });
+    res.status(404).json({ message: err.message });
   };
+  next();
 }
 
 exports.deleteUser = async (req, res) => {
