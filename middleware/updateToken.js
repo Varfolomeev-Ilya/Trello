@@ -52,24 +52,15 @@ const updateTokens = async (userId) => {
   };
 };
 
-// const tokenChecker = (req, res, next) => {
-//   try {
-//     const token = req.headers.authorization.split(' ')[1];
-//     const payload = jwt.verify(token);
-//     const reqUser = payload;
-//     return res.status(200).json({message :'successful login', reqUser})
-//   } catch (err) {
-//      res.status(404).json({ message: err.message })
-//   }
-//   next();
-// };
 const tokenChecker = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
+  let payload;
   try {
-    jwt.verify(token, secret);
+    payload = jwt.verify(token, secret);
   } catch (err) {
-    return res.status(404).json({ message: err.message })
+    res.status(404).json({ message: err.message })
   }
+  req.user = payload.userId;
   next();
 };
 

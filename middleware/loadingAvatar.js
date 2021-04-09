@@ -20,13 +20,4 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-const uploadFile = (req, res, next) => {
-  const filedata = req.file;
-  if (!filedata) {
-    return res.status(400).json({ message: 'upload error, try again' });
-  } else {
-    res.status(201).json({ message: 'file is upload' })
-  }
-};
-
-module.exports = { uploadFile, storageConfig, fileFilter };
+module.exports = { storageConfig, fileFilter };

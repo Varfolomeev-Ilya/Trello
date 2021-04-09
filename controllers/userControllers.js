@@ -42,14 +42,12 @@ exports.getAllUsers = async (req, res) => {
   };
 };
 
-exports.getOneUser = async (req, res) => {
+exports.getOneUser = async (req, res, next) => {
   try {
-    const id = req.body;
-    console.log(id)
-    const oneUser = await models.User.findOne({
-      where: { id },
+    const user = await models.User.findOne({
+      where: { id: req.user },
     });
-    return res.status(200).json({ message: 'User', oneUser });
+    return res.status(200).json(user);
   } catch (err) {
     res.status(404).json({ message: err.message });
   };
@@ -75,9 +73,10 @@ exports.uploadFile = async (req, res) => {
   try {
     const filedata = req.file;
     const id = req.body.id
+    const imgUrl = req.body.imgUrl;
     const updatedUser = await models.User.update(
       {
-        avatar: filedata.path
+        avatar: imgUrl
       },
       {
         where: { id },
