@@ -27,21 +27,6 @@ exports.updateUser = async (req, res) => {
   };
 };
 
-exports.getAllUsers = async (req, res) => {
-  try {
-    // const { roleId } = req.body;
-    // console.log(roleId)
-
-    // if (roleId != 1) {
-    //   throw new Error('user is not a admin');
-    // };
-    const allUsers = await models.User.findAll();
-    return res.status(200).json({ message: 'All users', allUsers });
-  } catch (err) {
-    return res.status(404).json({ message: err.message });
-  };
-};
-
 exports.getOneUser = async (req, res, next) => {
   try {
     const user = await models.User.findOne({
@@ -94,3 +79,4 @@ exports.uploadFile = async (req, res) => {
     return res.status(404).json({ message: error.message })
   }
 };
+

@@ -8,11 +8,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      boardId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
       name: {
         type: Sequelize.STRING
-      },
-      boardId: {
-        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,

@@ -11,12 +11,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Column.hasMany(models.Task);
+      Column.belongsTo(models.Board, {
+        foreignKey: 'boardId',
+      })
+      Column.hasMany(models.Task, {
+        foreignKey: 'columnId',
+        onDelete: 'cascade',
+      });
     }
   };
   Column.init({
-    name: DataTypes.STRING,
-    boardId: DataTypes.INTEGER,
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING,
+    },
   }, {
     sequelize,
     modelName: 'Column',

@@ -11,17 +11,25 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Board.hasMany(models.Column);
-      Board.belongsToMany(models.User, 
-        { through: 'User_Boards' }
-        );
+      Board.hasMany(models.Column, {
+        foreignKey: 'boardId',
+        onDelete: 'cascade'
+      });
+      Board.belongsTo(models.User, {
+        foreignKey: 'userId'
+      }
+      );
     }
   };
   Board.init({
-    name: DataTypes.STRING,
-  }, {
-    sequelize,
-    modelName: 'Board',
-  });
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING,
+  },
+},
+    {
+      sequelize,
+      modelName: 'Board',
+    });
   return Board;
 };

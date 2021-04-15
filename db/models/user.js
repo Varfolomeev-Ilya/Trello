@@ -12,8 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      User.belongsToMany(models.Board,
-        { through: 'User_Boards' }
+      User.hasMany(models.Board,{
+        foreignKey: 'userId',
+        onDelete: 'cascade'
+      }
       );
     }
   };

@@ -6,22 +6,27 @@ module.exports = {
       'Boards',
       [
         {
-          id: '1',
+          id: 1,
           name: 'FirstBoard',
           createdAt: new Date(),
           updatedAt: new Date(),
+          userId: 4
         },
         {
-          id: '2',
+          id: 2,
           name: 'SecondBoard',
           createdAt: new Date(),
           updatedAt: new Date(),
+          userId: 4
+
         },
         {
-          id: '3',
+          id: 3,
           name: 'ThirdBoard',
           createdAt: new Date(),
           updatedAt: new Date(),
+          userId: 4
+
         }
       ]
     ),
