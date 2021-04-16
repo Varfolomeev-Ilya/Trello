@@ -5,11 +5,11 @@ const { tokenChecker } = require('../middleware/updateToken');
 const { uploadFile, storageConfig, fileFilter } = require('../middleware/loadingAvatar');
 const multer = require('multer');
 
-userRouter.get('/user/me', controllers.getOneUser);
-userRouter.delete('/delete/:id', controllers.deleteUser);
-userRouter.patch('/account', controllers.updateUser);
+userRouter.get('/user/me', tokenChecker, controllers.getOneUser);
+userRouter.delete('/delete/:id', tokenChecker, controllers.deleteUser);
+userRouter.patch('/account', tokenChecker, controllers.updateUser);
 userRouter.use(multer({storage:storageConfig, filter:fileFilter}).single('filedata'));
-userRouter.post('/account', controllers.uploadFile);
+userRouter.post('/account', tokenChecker, controllers.uploadFile);
 
 module.exports = userRouter;
 

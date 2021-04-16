@@ -25,6 +25,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING,
     },
+    tasksPosition: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+    },
   }, {
     sequelize,
     modelName: 'Column',

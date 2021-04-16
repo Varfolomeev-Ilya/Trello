@@ -48,7 +48,7 @@ exports.deleteBoard = async (req, res, next) => {
 
 exports.changeBoardName = async (req,res,next) => {
   try {
-    const { id, name } = req.body;
+    // const { id, name } = req.body;
     const updateBoard = await models.Board.update(
       { name: req.body.boardName },
       {

@@ -23,7 +23,10 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
+      columnsPosition: {
+        type: Sequelize.ARRAY(Sequelize.INTEGER),
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {

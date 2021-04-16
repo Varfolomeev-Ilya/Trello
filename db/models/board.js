@@ -26,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING,
   },
+  columnsPosition: {
+    type: DataTypes.ARRAY(DataTypes.INTEGER),
+  }
 },
     {
       sequelize,

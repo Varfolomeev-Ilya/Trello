@@ -3,9 +3,10 @@ const controllers = require('../controllers/columnsController');
 const { tokenChecker } = require('../middleware/updateToken');
 const columnsRouter = express.Router();
 
-columnsRouter.get('/column', controllers.getColumns);
-columnsRouter.post('/column' , controllers.createColumn);
-columnsRouter.patch('/column' , controllers.changeColumnName);
-columnsRouter.delete('/column', controllers.deleteColumn);
+columnsRouter.get('/column', tokenChecker, controllers.getColumns);
+columnsRouter.post('/column' , tokenChecker, controllers.createColumn);
+columnsRouter.patch('/column' , tokenChecker, controllers.changeColumnName);
+columnsRouter.patch('/column-tasks', tokenChecker, controllers.tasksColumnPosition);
+columnsRouter.delete('/column', tokenChecker, controllers.deleteColumn);
 
 module.exports = columnsRouter;

@@ -22,6 +22,9 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      tasksPosition: {
+        type: Sequelize.ARRAY(Sequelize.INTEGER),
       }
     });
   },
