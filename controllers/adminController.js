@@ -1,6 +1,5 @@
 require('dotenv').config();
 const models = require('../db/models');
-const { response } = require('express');
 require('../middleware/loadingAvatar');
 
 exports.getAllUsers = async (req, res, next) => {

@@ -1,5 +1,4 @@
 require('dotenv').config();
-const { response } = require('express');
 const models = require('../db/models');
 
 exports.getBoards = async (req,res,next) => {
@@ -35,9 +34,10 @@ exports.createBoard = async (req, res) => {
 
 exports.deleteBoard = async (req, res, next) => {
   try {
+    const { boardId } = req.body;
     const deleteBoard = await models.Board.destroy({
        where: {
-          id:req.body.boardId
+          id:boardId
            } 
     })
     res.status(200).json('board delete')
@@ -48,12 +48,35 @@ exports.deleteBoard = async (req, res, next) => {
 
 exports.changeBoardName = async (req,res,next) => {
   try {
-    // const { id, name } = req.body;
+    const { boardId, boardName } = req.body;
     const updateBoard = await models.Board.update(
-      { name: req.body.boardName },
+      { name: boardName },
       {
         where: {
-          id: req.body.boardId
+          id: boardId
+        },
+        returning: true,
+        plain: true,
+      },
+    );
+      if(!updateBoard) {
+        throw new Error('board not found')
+      }
+      const board = updateBoard[1].dataValues;
+      res.status(200).json(board)
+  } catch (error) {
+    next(error);
+  }
+}
+
+exports.columnsBoardPosition = async (req,res,next) => {
+  try {
+    const { boardId, columnPosition } = req.body;
+    const updateBoard = await models.Board.update(
+      { position: columnPosition },
+      {
+        where: {
+          id: boardId
         },
         returning: true,
         plain: true,

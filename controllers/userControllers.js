@@ -1,5 +1,4 @@
 require('dotenv').config();
-const multer = require('multer');
 const models = require('../db/models');
 require('../middleware/loadingAvatar');
 

@@ -1,5 +1,4 @@
 require('dotenv').config();
-const { response } = require('express');
 const models = require('../db/models');
 
 exports.getColumns = async (req, res, next) => {
@@ -7,8 +6,8 @@ exports.getColumns = async (req, res, next) => {
     // if(!req.query.boardId){
     //   throw new Error("")
     // }
-    // const { boardId } = req.query;
-    const board = await models.Board.findByPk(req.query.boardId);
+    const { boardId } = req.query;
+    const board = await models.Board.findByPk(boardId);
     if (!board) {
       throw new Error('Board not found')
     }
@@ -30,13 +29,13 @@ exports.getColumns = async (req, res, next) => {
 
 exports.changeColumnName = async (req, res, next) => {
   try {
-    // const { columnName, columnId } = req.body
+    const { columnName, columnId } = req.body
 
     const updateColumn = await models.Column.update(
-      { name: req.body.columnName },
+      { name: columnName },
       {
         where: {
-          id: req.body.columnId
+          id: columnId
         },
         returning: true,
         plain: true,
@@ -78,11 +77,11 @@ exports.tasksColumnPosition = async (req, res, next) => {
 
 exports.createColumn = async (req, res, next) => {
   try {
-    // const { name, boardId } = req.body;
-    await models.Board.findByPk(req.body.boardId)
+    const { name, boardId } = req.body;
+    await models.Board.findByPk(boardId)
     const column = await models.Column.create({
-      name: req.body.name,
-      boardId: req.body.boardId,
+      name: name,
+      boardId: boardId,
     });
     res.status(200).json(column);
   } catch (error) {
@@ -92,10 +91,10 @@ exports.createColumn = async (req, res, next) => {
 
 exports.deleteColumn = async (req, res, next) => {
   try {
-    // const { columnId } = req.body;
+    const { columnId } = req.body;
     const column = await models.Column.destroy({
       where: {
-        id: req.body.columnId
+        id: columnId
       }
     })
     res.status(200).json('column delted');

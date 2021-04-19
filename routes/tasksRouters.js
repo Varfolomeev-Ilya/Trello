@@ -6,5 +6,6 @@ const taskRouter = express.Router();
 taskRouter.post('/tasks', tokenChecker, controllers.createTask);
 taskRouter.delete('/tasks', tokenChecker, controllers.deleteTasks);
 taskRouter.patch('/tasks', tokenChecker, controllers.updateTasks);
+taskRouter.patch('/tasks-column', tokenChecker, controllers.changeTasksColumnId)
 
 module.exports = taskRouter;
