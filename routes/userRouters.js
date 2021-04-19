@@ -6,7 +6,6 @@ const { uploadFile, storageConfig, fileFilter } = require('../middleware/loading
 const multer = require('multer');
 
 userRouter.get('/user/me', tokenChecker, controllers.getOneUser);
-userRouter.delete('/delete/:id', tokenChecker, controllers.deleteUser);
 userRouter.patch('/account', tokenChecker, controllers.updateUser);
 userRouter.use(multer({storage:storageConfig, filter:fileFilter}).single('filedata'));
 userRouter.post('/account', tokenChecker, controllers.uploadFile);

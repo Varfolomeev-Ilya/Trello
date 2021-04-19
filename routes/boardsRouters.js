@@ -6,6 +6,7 @@ const boardRouter = express.Router();
 boardRouter.get('/boards', tokenChecker, controllers.getBoards);
 boardRouter.post('/boards', tokenChecker, controllers.createBoard);
 boardRouter.patch('/board', tokenChecker, controllers.changeBoardName);
+boardRouter.patch('/board-column', tokenChecker, controllers.columnsBoardPosition);
 boardRouter.delete('/boards', tokenChecker, controllers.deleteBoard);
 
 module.exports = boardRouter;

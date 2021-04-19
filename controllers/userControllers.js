@@ -1,5 +1,4 @@
 require('dotenv').config();
-const multer = require('multer');
 const models = require('../db/models');
 require('../middleware/loadingAvatar');
 
@@ -37,22 +36,7 @@ exports.getOneUser = async (req, res, next) => {
     res.status(404).json({ message: err.message });
   };
   next();
-}
-
-exports.deleteUser = async (req, res) => {
-  try {
-    const id = req.params.id;
-    await models.User.destroy({
-      where: { id },
-
-    });
-
-    return res.status(202).json({ message: 'User deleted', id });
-  } catch (err) {
-    return res.status(404).json({ message: err.message });
-  };
 };
-
 
 exports.uploadFile = async (req, res) => {
   try {
