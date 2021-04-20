@@ -72,9 +72,9 @@ exports.changeBoardName = async (req,res,next) => {
 
 exports.columnsBoardPosition = async (req,res,next) => {
   try {
-    const { boardId, columnPosition } = req.body;
+    const { boardId, columnsPosition } = req.body;
     const updateBoard = await models.Board.update(
-      { position: columnPosition },
+      { columnsPosition },
       {
         where: {
           id: boardId

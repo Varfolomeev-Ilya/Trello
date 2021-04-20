@@ -5,17 +5,17 @@ require('../middleware/loadingAvatar');
 exports.getAllUsers = async (req, res, next) => {
   try {
     const { roleId, id } = req.query;
-    if (req.query.roleId == 2) {
-      const user = await models.User.findOne({
-        where: {
-          id: id,
-        },
-      });
-    }
+    // if (req.query.roleId == 2) {
+    //   const user = await models.User.findOne({
+    //     where: {
+    //       id: id,
+    //     },
+    //   });
+    // }
 
-    if (!user) {
-      throw new Error('user no found');
-    };
+    // if (!user) {
+    //   throw new Error('user no found');
+    // };
 
     const allUsers = await models.User.findAll({
       order: [['id', 'ASC']],
