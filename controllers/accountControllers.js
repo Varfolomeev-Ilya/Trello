@@ -1,7 +1,7 @@
 require('dotenv').config();
 const models = require('../db/models');
 const bcrypt = require('bcryptjs');
-const { updateTokens } = require('../middleware/updateToken');
+const { updateTokens } = require('../utils/updateToken');
 
 exports.signUp = async (req, res) => {
   try {
@@ -15,7 +15,6 @@ exports.signUp = async (req, res) => {
       email,
       firstName,
       lastName,
-      roleId: 2,
       password: passwordHash,
     });
     const tokens = await updateTokens(user.id);

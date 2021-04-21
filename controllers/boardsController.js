@@ -1,15 +1,15 @@
-require('dotenv').config();
 const models = require('../db/models');
 
-exports.getBoards = async (req,res,next) => {
-  try{
-    const user = await models.User.findByPk(req.user);
+exports.getBoards = async (req, res, next) => {
+  try {
+    const { userId } = req.query;
+    const user = await models.User.findByPk(userId);
     if (!user) {
-      throw new Error ('User not found')
+      throw new Error('User not found')
     }
     const allBoards = await user.getBoards();
     res.status(200).json(allBoards);
-  } catch(error){
+  } catch (error) {
     next(error);
   }
 };
@@ -35,18 +35,18 @@ exports.createBoard = async (req, res) => {
 exports.deleteBoard = async (req, res, next) => {
   try {
     const { boardId } = req.body;
-    const deleteBoard = await models.Board.destroy({
-       where: {
-          id:boardId
-           } 
+    await models.Board.destroy({
+      where: {
+        id: boardId
+      }
     })
     res.status(200).json('board delete')
   } catch (error) {
-      next(error);
+    next(error);
   }
 };
 
-exports.changeBoardName = async (req,res,next) => {
+exports.changeBoardName = async (req, res, next) => {
   try {
     const { boardId, boardName } = req.body;
     const updateBoard = await models.Board.update(
@@ -59,21 +59,21 @@ exports.changeBoardName = async (req,res,next) => {
         plain: true,
       },
     );
-      if(!updateBoard) {
-        throw new Error('board not found')
-      }
-      const board = updateBoard[1].dataValues;
-      res.status(200).json(board)
+    if (!updateBoard) {
+      throw new Error('board not found')
+    }
+    const board = updateBoard[1].dataValues;
+    res.status(200).json(board)
   } catch (error) {
     next(error);
   }
 }
 
-exports.columnsBoardPosition = async (req,res,next) => {
+exports.columnsBoardPosition = async (req, res, next) => {
   try {
-    const { boardId, columnPosition } = req.body;
+    const { boardId, columnsPosition } = req.body;
     const updateBoard = await models.Board.update(
-      { position: columnPosition },
+      { columnsPosition: columnsPosition },
       {
         where: {
           id: boardId
@@ -82,12 +82,12 @@ exports.columnsBoardPosition = async (req,res,next) => {
         plain: true,
       },
     );
-      if(!updateBoard) {
-        throw new Error('board not found')
-      }
-      const board = updateBoard[1].dataValues;
-      res.status(200).json(board)
+    if (!updateBoard) {
+      throw new Error('board not found')
+    }
+    const board = updateBoard[1].dataValues;
+    res.json(board)
   } catch (error) {
     next(error);
   }
-}
+};

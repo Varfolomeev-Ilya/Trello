@@ -10,14 +10,14 @@ module.exports = {
           name: 'FirstBoard',
           createdAt: new Date(),
           updatedAt: new Date(),
-          userId: 4
+          userId: 3
         },
         {
           id: 2,
           name: 'SecondBoard',
           createdAt: new Date(),
           updatedAt: new Date(),
-          userId: 4
+          userId: 3
 
         },
         {
@@ -25,7 +25,7 @@ module.exports = {
           name: 'ThirdBoard',
           createdAt: new Date(),
           updatedAt: new Date(),
-          userId: 4
+          userId: 3
 
         }
       ]

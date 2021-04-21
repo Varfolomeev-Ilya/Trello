@@ -16,7 +16,7 @@ module.exports = {
           avatar: 'http',
           createdAt: new Date(),
           updatedAt: new Date(),
-          roleId: 1
+          roleId: 'user'
         },
         {
           firstName: 'Ivan',
@@ -28,7 +28,7 @@ module.exports = {
           avatar: 'http',
           createdAt: new Date(),
           updatedAt: new Date(),
-          roleId: 1
+          roleId: 'user'
         },
         {
           firstName: 'Sergey',
@@ -40,7 +40,19 @@ module.exports = {
           avatar: 'http',
           createdAt: new Date(),
           updatedAt: new Date(),
-          roleId: 1
+          roleId: 'user'
+        },
+        {
+          firstName: 'addmin',
+          lastName: 'adminovich',
+          email: 'admin@admin.com',
+          password: bcrypt.hashSync('admin1234'),
+          dateOfBirth: '01.01.1992',
+          aboutMe: 'I am a beginner developer',
+          avatar: 'http',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          roleId: 'admin'
         },
       ],
     ),

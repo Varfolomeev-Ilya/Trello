@@ -1,4 +1,3 @@
-require('dotenv').config();
 const models = require('../db/models');
 
 exports.createTask = async (req, res, next) => {
@@ -14,7 +13,7 @@ exports.createTask = async (req, res, next) => {
         const task = await column.createTask({
             text: text
         });
-        res.status(201).json(task)
+        res.json(task)
 
     } catch (error) {
         next(error);
@@ -35,7 +34,7 @@ exports.deleteTasks = async (req, res, next) => {
                 id: taskDelId,
             }
         })
-        res.status(200).json('task was deleted');
+        res.json('task was deleted');
     } catch (error) {
         next(error);
     }
@@ -54,7 +53,7 @@ exports.updateTasks = async (req, res, next) => {
         if (!task) {
             throw new Error('task not found');
         }
-        res.status(200).json('task was updated');
+        res.json('task was updated');
     } catch (error) {
         next(error);
     }
@@ -73,7 +72,7 @@ exports.changeTasksColumnId = async (req, res, next) => {
         if (!task) {
             throw new Error('task not found');
         }
-        res.status(200).json('task was changed');
+        res.json('task was changed');
     } catch (error) {
         next(error);
     }

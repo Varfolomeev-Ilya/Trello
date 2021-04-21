@@ -1,11 +1,7 @@
-require('dotenv').config();
 const models = require('../db/models');
 
-exports.getColumns = async (req, res, next) => {
+exports.getAllColumns = async (req, res, next) => {
   try {
-    // if(!req.query.boardId){
-    //   throw new Error("")
-    // }
     const { boardId } = req.query;
     const board = await models.Board.findByPk(boardId);
     if (!board) {
@@ -21,7 +17,7 @@ exports.getColumns = async (req, res, next) => {
         ['Tasks', 'id', 'ASC'],
       ],
     });
-    res.status(200).json(columns);
+    res.json(columns);
   } catch (error) {
     next(error);
   }
@@ -45,7 +41,7 @@ exports.changeColumnName = async (req, res, next) => {
       throw new Error('column not found')
     }
     const column = updateColumn[1].dataValues;
-    res.status(200).json(column);
+    res.json(column);
   } catch (error) {
     next(error)
   }
@@ -69,7 +65,7 @@ exports.tasksColumnPosition = async (req, res, next) => {
       throw new Error('column not found')
     }
     const column = updateColumn[1].dataValues;
-    res.status(200).json(column);
+    res.json(column);
   } catch (error) {
     next(error)
   }
@@ -83,7 +79,7 @@ exports.createColumn = async (req, res, next) => {
       name: name,
       boardId: boardId,
     });
-    res.status(200).json(column);
+    res.json(column);
   } catch (error) {
     next(error);
   }
@@ -97,7 +93,7 @@ exports.deleteColumn = async (req, res, next) => {
         id: columnId
       }
     })
-    res.status(200).json('column delted');
+    res.json('column delted');
   } catch (error) {
     next(error)
   }

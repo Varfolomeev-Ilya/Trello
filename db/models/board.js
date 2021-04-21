@@ -25,11 +25,11 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       allowNull: false,
       type: DataTypes.STRING,
+    },
+    columnsPosition: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+    }
   },
-  columnsPosition: {
-    type: DataTypes.ARRAY(DataTypes.INTEGER),
-  }
-},
     {
       sequelize,
       modelName: 'Board',

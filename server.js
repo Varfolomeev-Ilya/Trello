@@ -1,8 +1,3 @@
-const express = require('express');
-const config = require('./config');
-
-const app = express();
+const app = require('./app');
 
 app.listen(8080, () => console.log('Server started'));
-
-module.exports = app;
