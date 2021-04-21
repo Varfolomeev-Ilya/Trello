@@ -11,6 +11,10 @@ module.exports = {
       columnId: {
         allowNull: false,
         type: Sequelize.INTEGER,
+        references: {
+          model: 'Columns',
+        },
+        onDelete: 'cascade'
       },
       text: {
         allowNull: false,

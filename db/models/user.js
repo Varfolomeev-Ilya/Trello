@@ -11,11 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      // User.hasOne(models.Token,{
+      //   foreignKey: 'userId',
+      // },
+      // );
 
       User.hasMany(models.Board,{
         foreignKey: 'userId',
         onDelete: 'cascade'
-      }
+      },
       );
     }
   };

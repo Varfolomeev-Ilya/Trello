@@ -1,8 +1,6 @@
-require('dotenv').config();
 const { v4: uuidv4 } = require('uuid');
 const jwt = require('jsonwebtoken');
 const models = require('../db/models');
-const { response } = require('express');
 
 const secret = process.env.JWT_SECRET;
 
@@ -27,7 +25,7 @@ const generateRefreshToken = () => {
   };
 };
 
-const updateDRefreshToken = async (tokenId, userId) => {
+const updatedRefreshToken = async (tokenId, userId) => {
   try {
     let token;
     token = await models.token.findOne({ where: { userId } });
@@ -42,7 +40,7 @@ const updateTokens = async (userId) => {
   const accessToken = generateAccessToken(userId);
   const refreshToken = generateRefreshToken();
   try {
-    await updateDRefreshToken(refreshToken.id, userId);
+    await updatedRefreshToken(refreshToken.id, userId);
   } catch (err) {
     return res.status(404).json({ err: true, message: 'token has not been updated' });
   }

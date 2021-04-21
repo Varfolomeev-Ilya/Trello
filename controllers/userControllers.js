@@ -1,4 +1,3 @@
-require('dotenv').config();
 const models = require('../db/models');
 require('../middleware/loadingAvatar');
 
@@ -20,7 +19,7 @@ exports.updateUser = async (req, res) => {
       });
     const user = updatedUser[1].dataValues;
     delete user.password;
-    return res.status(200).json(user);
+    return res.json(user);
   } catch (error) {
     res.status(404).json({ message: error.message });
   };
@@ -31,7 +30,7 @@ exports.getOneUser = async (req, res, next) => {
     const user = await models.User.findOne({
       where: { id: req.user },
     });
-    return res.status(200).json(user);
+    return res.json(user);
   } catch (err) {
     res.status(404).json({ message: err.message });
   };
@@ -58,7 +57,7 @@ exports.uploadFile = async (req, res) => {
     if (!filedata) {
       return res.status(400).json({ message: 'upload error, try again' });
     }
-    return res.status(200).json(user)
+    return res.json(user)
   } catch (error) {
     return res.status(404).json({ message: error.message })
   }

@@ -1,4 +1,3 @@
-require('dotenv').config();
 const models = require('../db/models');
 
 exports.getBoards = async (req,res,next) => {
@@ -74,7 +73,7 @@ exports.columnsBoardPosition = async (req,res,next) => {
   try {
     const { boardId, columnsPosition } = req.body;
     const updateBoard = await models.Board.update(
-      { columnsPosition },
+      { columnsPosition: columnsPosition },
       {
         where: {
           id: boardId
@@ -87,8 +86,8 @@ exports.columnsBoardPosition = async (req,res,next) => {
         throw new Error('board not found')
       }
       const board = updateBoard[1].dataValues;
-      res.status(200).json(board)
+      res.json(board)
   } catch (error) {
     next(error);
   }
-}
+};

@@ -1,10 +1,10 @@
 const express = require('express');
 const controllers = require('../controllers/adminController');
-const { tokenChecker } = require('../middleware/updateToken');
+const { tokenChecker } = require('../utils/updateToken');
 const adminRouter = express.Router();
 
-adminRouter.get('/admin', tokenChecker, controllers.getAllUsers);
-adminRouter.patch('/admin/user', tokenChecker, controllers.updateOneUser);
-adminRouter.delete('/admin/user-delete', tokenChecker, controllers.deleteUser);
+adminRouter.get('/', tokenChecker, controllers.getAllUsers);
+adminRouter.patch('/user', tokenChecker, controllers.updateOneUser);
+adminRouter.delete('/user-delete', tokenChecker, controllers.deleteUser);
 
 module.exports = adminRouter;

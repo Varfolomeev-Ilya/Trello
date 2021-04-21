@@ -1,4 +1,3 @@
-require('dotenv').config();
 const models = require('../db/models');
 require('../middleware/loadingAvatar');
 
@@ -46,9 +45,9 @@ exports.updateOneUser = async (req, res, next) => {
         plain: true,
       }
     );
-    const user = updatedUser[1].dataValues;
+    const user = updatedUser[1].toJSON();
     delete user.password;
-    return res.status(200).json(user);
+    return res.json(user);
   } catch (error) {
     next(error);
   };
@@ -60,12 +59,10 @@ exports.deleteUser = async (req, res) => {
     const deletedUser = await models.User.destroy({
       where: { id },
     });
-    const allusers = await models.User.findAll();
     if (!deletedUser) {
       throw new Error('User not found');
     }
-    return res.status(202).json(allusers);
   } catch (err) {
-    return res.status(404).json({ message: err.message });
+    return res.status(500).json('Internal server error');
   };
 };
