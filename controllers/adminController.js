@@ -23,9 +23,9 @@ exports.getAllUsers = async (req, res, next) => {
      res.json(allUsers);
   } catch (error) {
     next(error)
-  };
+    return res.status(200).json({ message: 'All users', allUsers });
 };
-
+}
 exports.updateOneUser = async (req, res, next) => {
   try {
     const { roleId, firstName, email, createdAt, id } = req.body;
@@ -64,5 +64,5 @@ exports.deleteUser = async (req, res) => {
     }
   } catch (err) {
     return res.status(500).json('Internal server error');
-  };
+  }
 };

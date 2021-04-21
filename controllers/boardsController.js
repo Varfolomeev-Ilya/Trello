@@ -1,7 +1,8 @@
 const models = require('../db/models');
 
-exports.getBoards = async (req, res, next) => {
-  try {
+
+exports.getBoards = async (req,res,next) => {
+  try{
     const { userId } = req.query;
     const user = await models.User.findByPk(userId);
     if (!user) {
@@ -87,6 +88,11 @@ exports.columnsBoardPosition = async (req, res, next) => {
     }
     const board = updateBoard[1].dataValues;
     res.json(board)
+      if(!updateBoard) {
+        throw new Error('board not found')
+      }
+      const board = updateBoard[1].dataValues;
+      res.json(board)
   } catch (error) {
     next(error);
   }

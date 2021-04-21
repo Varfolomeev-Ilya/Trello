@@ -5,6 +5,7 @@ const adminRouter = express.Router();
 const { userRoleIdValidation } = require('../utils/validation');
 
 adminRouter.get('/', tokenChecker, userRoleIdValidation, controllers.getAllUsers);
+adminRouter.get('/', tokenChecker, controllers.getAllUsers);
 adminRouter.patch('/user', tokenChecker, controllers.updateOneUser);
 adminRouter.delete('/user-delete', tokenChecker, controllers.deleteUser);
 
