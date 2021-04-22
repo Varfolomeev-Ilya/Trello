@@ -3,6 +3,7 @@ const controllers = require('../controllers/columnsController');
 const { tokenChecker } = require('../utils/updateToken');
 const { columnNameValidation } = require('../utils/validation');
 const columnsRouter = express.Router();
+const { columnNameValidation } = require('../utils/validation');
 
 columnsRouter.get('/', tokenChecker, controllers.getAllColumns);
 columnsRouter.post('/' , tokenChecker, columnNameValidation, controllers.createColumn);

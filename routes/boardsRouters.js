@@ -3,6 +3,7 @@ const controllers = require('../controllers/boardsController');
 const { tokenChecker } = require('../utils/updateToken');
 const { boardNameValidation } = require('../utils/validation');
 const boardRouter = express.Router();
+const { boardNameValidation } = require('../utils/validation');
 
 boardRouter.get('/', tokenChecker, controllers.getBoards);
 boardRouter.post('/', tokenChecker, boardNameValidation, controllers.createBoard);

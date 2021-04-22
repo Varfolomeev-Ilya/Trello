@@ -40,6 +40,7 @@ const columnNameValidation = celebrate({
   body: Joi.object().keys({
     id: Joi.number(),
     name: Joi.string().required().max(20),
+    text: Joi.string().required().max(20),
   }),
 });
 
