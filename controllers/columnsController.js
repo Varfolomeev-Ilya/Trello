@@ -25,13 +25,13 @@ exports.getAllColumns = async (req, res, next) => {
 
 exports.changeColumnName = async (req, res, next) => {
   try {
-    const { columnName, columnId } = req.body
+    const { name, id } = req.body
 
     const updateColumn = await models.Column.update(
-      { name: columnName },
+      { name },
       {
         where: {
-          id: columnId
+          id: id
         },
         returning: true,
         plain: true,
@@ -73,11 +73,11 @@ exports.tasksColumnPosition = async (req, res, next) => {
 
 exports.createColumn = async (req, res, next) => {
   try {
-    const { name, boardId } = req.body;
-    await models.Board.findByPk(boardId)
+    const { name, id } = req.body;
+    await models.Board.findByPk(id)
     const column = await models.Column.create({
       name: name,
-      boardId: boardId,
+      boardId: id,
     });
     res.json(column);
   } catch (error) {

@@ -42,7 +42,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     avatar: DataTypes.STRING,
     aboutMe: DataTypes.STRING,
-    roleId: DataTypes.INTEGER
+    roleId: {
+      type: DataTypes.ENUM('admin', 'user'),
+      defaultValue: 'user',
+    },
   },
     {
       sequelize,

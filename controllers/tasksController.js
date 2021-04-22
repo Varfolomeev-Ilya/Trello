@@ -2,9 +2,9 @@ const models = require('../db/models');
 
 exports.createTask = async (req, res, next) => {
     try {
-        const { columnId, text } = req.body;
+        const { id, text } = req.body;
 
-        const column = await models.Column.findByPk(columnId);
+        const column = await models.Column.findByPk(id);
 
         if (!column) {
             throw new Error('column not found');
@@ -42,11 +42,11 @@ exports.deleteTasks = async (req, res, next) => {
 
 exports.updateTasks = async (req, res, next) => {
     try {
-        const { text, taskId } = req.body;
+        const { text, id } = req.body;
         const task = await models.Task.update(
             { text: text },
             {
-                where: { id: taskId },
+                where: { id },
             },
         );
 

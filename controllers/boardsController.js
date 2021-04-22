@@ -8,39 +8,40 @@ exports.getBoards = async (req,res,next) => {
       throw new Error ('User not found')
     }
     const allBoards = await user.getBoards();
-    res.status(200).json(allBoards);
+    res.json(allBoards);
   } catch(error){
     next(error);
   }
 };
 
-exports.createBoard = async (req, res) => {
+exports.createBoard = async (req, res, next) => {
   try {
-    const { name, email, id } = req.body;
-    await models.User.findOne({
-      where: { email },
-    });
+    const { name, id } = req.body;
+    const user = await models.User.findByPk(id);
+    if(!user) {
+      throw new Error('user not found');
+    }
 
     const board = await models.Board.create({
       name: name,
       userId: id
     });
 
-    res.status(200).json(board);
+    res.json(board);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    next(error);
   }
 };
 
 exports.deleteBoard = async (req, res, next) => {
   try {
     const { boardId } = req.body;
-    const deleteBoard = await models.Board.destroy({
+    await models.Board.destroy({
        where: {
           id:boardId
            } 
     })
-    res.status(200).json('board delete')
+    res.json('board delete')
   } catch (error) {
       next(error);
   }
@@ -48,12 +49,12 @@ exports.deleteBoard = async (req, res, next) => {
 
 exports.changeBoardName = async (req,res,next) => {
   try {
-    const { boardId, boardName } = req.body;
+    const { id, name } = req.body;
     const updateBoard = await models.Board.update(
-      { name: boardName },
+      { name },
       {
         where: {
-          id: boardId
+          id: id
         },
         returning: true,
         plain: true,
@@ -63,7 +64,7 @@ exports.changeBoardName = async (req,res,next) => {
         throw new Error('board not found')
       }
       const board = updateBoard[1].dataValues;
-      res.status(200).json(board)
+      res.json(board)
   } catch (error) {
     next(error);
   }

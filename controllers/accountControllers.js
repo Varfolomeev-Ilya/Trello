@@ -15,7 +15,7 @@ exports.signUp = async (req, res) => {
       email,
       firstName,
       lastName,
-      roleId: 2,
+      roleId: 'user',
       password: passwordHash,
     });
     const tokens = await updateTokens(user.id);
@@ -49,7 +49,7 @@ exports.signIn = async (req, res) => {
 
     const tokens = await updateTokens(user.id);
 
-    return res.status(200).json({ message: 'successful login', tokens, user });
+    return res.json({ message: 'successful login', tokens, user });
 
   } catch (err) {
     return res.status(500).json({ message: err.message });
